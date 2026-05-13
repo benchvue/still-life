@@ -10,22 +10,17 @@
 <style>
   :root{
     --paper:        #f3ece1;
-    --paper-deep:   #ebe2d3;
-    --wall:         #e8dfd0;
+    --wall:         #ece4d4;
     --ink:          #1c1815;
     --ink-soft:     #4a423a;
     --muted:        #8a7f6f;
-    --gold:         #a8884a;
-    --gold-deep:    #6e5421;
-    --frame-outer:  #2a221a;
-    --frame-inner:  #f8f2e6;
-    --shadow:       0 30px 60px -20px rgba(40, 28, 14, .35),
-                    0 18px 36px -18px rgba(40, 28, 14, .25);
-    --shadow-soft:  0 8px 24px -12px rgba(40, 28, 14, .25);
+    --accent:       #6e5421;
+    --accent-soft:  #a8884a;
+    --canvas-edge:  #d8cdb8;
+    --canvas-side:  #c8bda6;
   }
 
   *{ box-sizing:border-box; margin:0; padding:0; }
-
   html{ scroll-behavior:smooth; }
 
   body{
@@ -41,14 +36,14 @@
     overflow-x:hidden;
   }
 
-  /* Subtle canvas/paper grain */
+  /* Subtle paper grain */
   body::before{
     content:"";
     position:fixed; inset:0;
     pointer-events:none;
     background-image:
       url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.08  0 0 0 0 0.05  0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
-    opacity:.35;
+    opacity:.3;
     mix-blend-mode:multiply;
     z-index:1;
   }
@@ -58,7 +53,7 @@
     content:"";
     position:fixed; inset:0;
     pointer-events:none;
-    background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(40, 28, 14, .25) 100%);
+    background: radial-gradient(120% 90% at 50% 40%, transparent 60%, rgba(40, 28, 14, .18) 100%);
     z-index:2;
   }
 
@@ -68,7 +63,6 @@
   header{
     padding: 80px 8vw 40px;
     text-align:center;
-    position:relative;
   }
 
   .eyebrow{
@@ -77,7 +71,7 @@
     font-weight:500;
     letter-spacing:.42em;
     text-transform:uppercase;
-    color:var(--gold-deep);
+    color:var(--accent);
     margin-bottom: 28px;
     display:inline-flex;
     align-items:center;
@@ -85,7 +79,7 @@
   }
   .eyebrow::before, .eyebrow::after{
     content:""; width:42px; height:1px;
-    background: linear-gradient(90deg, transparent, var(--gold-deep), transparent);
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
   }
 
   h1{
@@ -100,7 +94,7 @@
     font-family:'Cormorant Garamond', serif;
     font-style:italic;
     font-weight:300;
-    color:var(--gold-deep);
+    color:var(--accent);
     display:block;
     font-size:.42em;
     letter-spacing:.04em;
@@ -119,7 +113,7 @@
 
   .header-rule{
     width: 1px; height: 56px;
-    background: linear-gradient(180deg, var(--gold-deep), transparent);
+    background: linear-gradient(180deg, var(--accent), transparent);
     margin: 48px auto 0;
   }
 
@@ -148,14 +142,14 @@
   /* ---------- GALLERY GRID ---------- */
   .gallery{
     display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: clamp(48px, 6vw, 96px) clamp(32px, 4vw, 72px);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(56px, 6vw, 96px) clamp(36px, 4vw, 72px);
     padding: 40px clamp(32px, 8vw, 120px) 80px;
     max-width: 1500px;
     margin: 0 auto;
   }
 
-  /* Stagger sizes for editorial rhythm */
+  /* Stagger for editorial rhythm */
   .piece:nth-child(3n+1){ transform: translateY(0); }
   .piece:nth-child(3n+2){ transform: translateY(28px); }
   .piece:nth-child(3n+3){ transform: translateY(-12px); }
@@ -167,10 +161,12 @@
     animation: rise .9s cubic-bezier(.2,.7,.2,1) forwards;
   }
   .piece:nth-child(1){ animation-delay: .05s; }
-  .piece:nth-child(2){ animation-delay: .18s; }
-  .piece:nth-child(3){ animation-delay: .31s; }
-  .piece:nth-child(4){ animation-delay: .44s; }
-  .piece:nth-child(5){ animation-delay: .57s; }
+  .piece:nth-child(2){ animation-delay: .14s; }
+  .piece:nth-child(3){ animation-delay: .23s; }
+  .piece:nth-child(4){ animation-delay: .32s; }
+  .piece:nth-child(5){ animation-delay: .41s; }
+  .piece:nth-child(6){ animation-delay: .50s; }
+  .piece:nth-child(7){ animation-delay: .59s; }
 
   @keyframes rise{
     from{ opacity:0; transform: translateY(40px); }
@@ -181,101 +177,69 @@
     transform: translateY(-8px) !important;
   }
 
-  /* ---------- FRAME ---------- */
-  .frame{
-    position:relative;
-    padding: 22px;
-    background:
-      linear-gradient(135deg, #3a2e21 0%, #1f1812 50%, #3a2e21 100%);
-    border-radius: 2px;
-    box-shadow:
-      var(--shadow),
-      inset 0 0 0 1px rgba(168, 136, 74, .35),
-      inset 0 0 24px rgba(0,0,0,.4);
-    transition: box-shadow .5s ease;
-  }
-
-  /* Gilded outer trim */
-  .frame::before{
-    content:"";
-    position:absolute; inset: 6px;
-    border: 1px solid rgba(168, 136, 74, .55);
-    border-radius: 1px;
-    pointer-events:none;
-  }
-  /* Inner highlight */
-  .frame::after{
-    content:"";
-    position:absolute; inset: 18px;
-    border: 1px solid rgba(248, 242, 230, .12);
-    pointer-events:none;
-  }
-
-  .piece:hover .frame{
-    box-shadow:
-      0 40px 70px -20px rgba(40, 28, 14, .5),
-      0 24px 40px -18px rgba(40, 28, 14, .3),
-      inset 0 0 0 1px rgba(168, 136, 74, .55),
-      inset 0 0 24px rgba(0,0,0,.45);
-  }
-
-  /* Mat board around image */
-  .mat{
-    position:relative;
-    padding: 18px;
-    background: linear-gradient(180deg, #faf4e6 0%, #f1e9d5 100%);
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,.7),
-      inset 0 -1px 0 rgba(0,0,0,.06),
-      0 2px 4px rgba(0,0,0,.18);
-  }
-  /* Bevel line on mat */
-  .mat::before{
-    content:"";
-    position:absolute;
-    inset: 14px;
-    border: 1px solid rgba(110, 84, 33, .25);
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,.4);
-    pointer-events:none;
-  }
-
-  .image-wrap{
+  /* ---------- CANVAS FRAME (gallery-wrapped style) ---------- */
+  .canvas{
     position: relative;
-    overflow: hidden;
     aspect-ratio: 4 / 5;
-    background: #d9cdb6;
+    background: var(--canvas-edge);
+    /* Drop shadow + soft side bevels that suggest canvas depth */
+    box-shadow:
+      6px 0 0 -1px var(--canvas-side),
+      0 6px 0 -1px var(--canvas-side),
+      8px 14px 28px -8px rgba(40, 28, 14, .25),
+      14px 22px 50px -16px rgba(40, 28, 14, .22);
+    transition: box-shadow .5s ease, transform .5s ease;
   }
 
-  .image-wrap img{
-    width:100%; height:100%;
-    object-fit: cover;
-    display:block;
-    transition: transform 1.2s cubic-bezier(.2,.7,.2,1), filter .6s;
-    filter: contrast(1.02) saturate(1.02);
-  }
-
-  .piece:hover .image-wrap img{
-    transform: scale(1.05);
-    filter: contrast(1.05) saturate(1.06) brightness(1.02);
-  }
-
-  /* Light glare across glass */
-  .image-wrap::after{
+  /* Soft top-left highlight suggesting natural light */
+  .canvas::before{
     content:"";
     position:absolute;
     inset:0;
-    background: linear-gradient(115deg,
-      rgba(255,255,255,0) 30%,
-      rgba(255,255,255,.12) 45%,
-      rgba(255,255,255,0) 60%);
+    background: linear-gradient(135deg, rgba(255,255,255,.08) 0%, transparent 30%);
     pointer-events:none;
-    opacity:.6;
+    z-index: 2;
+  }
+
+  /* Faint canvas-weave texture */
+  .canvas::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4'><rect width='4' height='4' fill='none'/><path d='M0 2 L4 2 M2 0 L2 4' stroke='%23000' stroke-width='.3' opacity='.06'/></svg>");
+    pointer-events:none;
+    mix-blend-mode: multiply;
+    z-index: 3;
+  }
+
+  .canvas img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 1.2s cubic-bezier(.2,.7,.2,1), filter .6s;
+    filter: contrast(1.02) saturate(1.03);
+    position: relative;
+    z-index: 1;
+  }
+
+  .piece:hover .canvas{
+    box-shadow:
+      6px 0 0 -1px var(--canvas-side),
+      0 6px 0 -1px var(--canvas-side),
+      12px 22px 40px -8px rgba(40, 28, 14, .32),
+      20px 32px 60px -16px rgba(40, 28, 14, .26);
+  }
+  .piece:hover .canvas img{
+    transform: scale(1.04);
+    filter: contrast(1.05) saturate(1.07) brightness(1.02);
   }
 
   /* ---------- PLAQUE ---------- */
   .plaque{
     text-align:center;
-    padding: 22px 12px 0;
+    padding: 28px 12px 0;
   }
   .plaque .title{
     font-family:'Cormorant Garamond', serif;
@@ -326,16 +290,21 @@
   }
   .lightbox.open .lightbox-inner{ transform: scale(1); }
 
-  .lightbox .frame{
-    background: linear-gradient(135deg, #4a3a28 0%, #241b13 50%, #4a3a28 100%);
-    padding: 28px;
+  .lightbox .canvas{
+    aspect-ratio: auto;
+    box-shadow:
+      8px 0 0 -1px #b0a486,
+      0 8px 0 -1px #b0a486,
+      12px 22px 50px -8px rgba(0,0,0,.5);
   }
-  .lightbox .image-wrap{ aspect-ratio: auto; }
-  .lightbox .image-wrap img{ height:auto; max-height: 70vh; }
+  .lightbox .canvas img{
+    height: auto;
+    max-height: 70vh;
+  }
 
   .lightbox-plaque{
     text-align:center;
-    margin-top: 24px;
+    margin-top: 32px;
     color: var(--paper);
   }
   .lightbox-plaque .title{
@@ -351,7 +320,7 @@
     font-size: 11px;
     letter-spacing:.4em;
     text-transform:uppercase;
-    color: var(--gold);
+    color: var(--accent-soft);
   }
 
   .close{
@@ -405,13 +374,13 @@
   <header>
     <div class="eyebrow">A Spring Collection</div>
     <h1>Still Life<em>— in bloom —</em></h1>
-    <p class="lede">A small, quiet study of petals, light, and the patience of looking. Five works, gathered for the season.</p>
+    <p class="lede">A small, quiet study of petals, light, and the patience of looking. Seven works, gathered for the season.</p>
     <div class="header-rule"></div>
   </header>
 
   <section class="meta">
     <span>Curated <strong>May 2026</strong></span>
-    <span>Works <strong>Five Pieces</strong></span>
+    <span>Works <strong>Seven Pieces</strong></span>
     <span>Series <strong>Floral I</strong></span>
   </section>
 
@@ -430,12 +399,8 @@
   <section class="gallery" id="gallery">
 
     <figure class="piece" data-title="Azalea, Morning Window" data-date="Plate I · 13 May 2026" data-src="images/2026_05_13/azalea-1.webp">
-      <div class="frame">
-        <div class="mat">
-          <div class="image-wrap">
-            <img src="images/2026_05_13/azalea-1.webp" alt="Azalea still life, morning light" loading="lazy" decoding="async">
-          </div>
-        </div>
+      <div class="canvas">
+        <img src="images/2026_05_13/azalea-1.webp" alt="Azalea still life, morning light" loading="lazy" decoding="async">
       </div>
       <figcaption class="plaque">
         <div class="title">Azalea, Morning Window</div>
@@ -445,12 +410,8 @@
     </figure>
 
     <figure class="piece" data-title="Azalea, Afternoon Study" data-date="Plate II · 13 May 2026" data-src="images/2026_05_13/azalea-2.webp">
-      <div class="frame">
-        <div class="mat">
-          <div class="image-wrap">
-            <img src="images/2026_05_13/azalea-2.webp" alt="Azalea still life, afternoon study" loading="lazy" decoding="async">
-          </div>
-        </div>
+      <div class="canvas">
+        <img src="images/2026_05_13/azalea-2.webp" alt="Azalea still life, afternoon study" loading="lazy" decoding="async">
       </div>
       <figcaption class="plaque">
         <div class="title">Azalea, Afternoon Study</div>
@@ -459,47 +420,57 @@
       </figcaption>
     </figure>
 
-    <figure class="piece" data-title="Forsythia in Quiet Light" data-date="Plate III · 13 May 2026" data-src="images/2026_05_13/forsythia-1.webp">
-      <div class="frame">
-        <div class="mat">
-          <div class="image-wrap">
-            <img src="images/2026_05_13/forsythia-1.webp" alt="Forsythia still life" loading="lazy" decoding="async">
-          </div>
-        </div>
+    <figure class="piece" data-title="Cornflower, A Field Note" data-date="Plate III · 13 May 2026" data-src="images/2026_05_13/conflower.webp">
+      <div class="canvas">
+        <img src="images/2026_05_13/conflower.webp" alt="Cornflower still life" loading="lazy" decoding="async">
       </div>
       <figcaption class="plaque">
-        <div class="title">Forsythia in Quiet Light</div>
+        <div class="title">Cornflower, A Field Note</div>
         <div class="date">Plate III · 13 May 2026</div>
         <svg class="ornament"><use href="#orn"/></svg>
       </figcaption>
     </figure>
 
-    <figure class="piece" data-title="Tulip, First Posture" data-date="Plate IV · 13 May 2026" data-src="images/2026_05_13/tulip-1.webp">
-      <div class="frame">
-        <div class="mat">
-          <div class="image-wrap">
-            <img src="images/2026_05_13/tulip-1.webp" alt="Tulip still life, first study" loading="lazy" decoding="async">
-          </div>
-        </div>
+    <figure class="piece" data-title="Forsythia in Quiet Light" data-date="Plate IV · 13 May 2026" data-src="images/2026_05_13/forsythia-1.webp">
+      <div class="canvas">
+        <img src="images/2026_05_13/forsythia-1.webp" alt="Forsythia still life" loading="lazy" decoding="async">
       </div>
       <figcaption class="plaque">
-        <div class="title">Tulip, First Posture</div>
+        <div class="title">Forsythia in Quiet Light</div>
         <div class="date">Plate IV · 13 May 2026</div>
         <svg class="ornament"><use href="#orn"/></svg>
       </figcaption>
     </figure>
 
-    <figure class="piece" data-title="Tulip, Bending Toward Evening" data-date="Plate V · 13 May 2026" data-src="images/2026_05_13/tulip-2.webp">
-      <div class="frame">
-        <div class="mat">
-          <div class="image-wrap">
-            <img src="images/2026_05_13/tulip-2.webp" alt="Tulip still life, evening" loading="lazy" decoding="async">
-          </div>
-        </div>
+    <figure class="piece" data-title="Tulip, First Posture" data-date="Plate V · 13 May 2026" data-src="images/2026_05_13/tulip-1.webp">
+      <div class="canvas">
+        <img src="images/2026_05_13/tulip-1.webp" alt="Tulip still life, first study" loading="lazy" decoding="async">
+      </div>
+      <figcaption class="plaque">
+        <div class="title">Tulip, First Posture</div>
+        <div class="date">Plate V · 13 May 2026</div>
+        <svg class="ornament"><use href="#orn"/></svg>
+      </figcaption>
+    </figure>
+
+    <figure class="piece" data-title="Tulip, Bending Toward Evening" data-date="Plate VI · 13 May 2026" data-src="images/2026_05_13/tulip-2.webp">
+      <div class="canvas">
+        <img src="images/2026_05_13/tulip-2.webp" alt="Tulip still life, evening" loading="lazy" decoding="async">
       </div>
       <figcaption class="plaque">
         <div class="title">Tulip, Bending Toward Evening</div>
-        <div class="date">Plate V · 13 May 2026</div>
+        <div class="date">Plate VI · 13 May 2026</div>
+        <svg class="ornament"><use href="#orn"/></svg>
+      </figcaption>
+    </figure>
+
+    <figure class="piece" data-title="Tulip, A Closing Note" data-date="Plate VII · 13 May 2026" data-src="images/2026_05_13/tulip-3.webp">
+      <div class="canvas">
+        <img src="images/2026_05_13/tulip-3.webp" alt="Tulip still life, closing study" loading="lazy" decoding="async">
+      </div>
+      <figcaption class="plaque">
+        <div class="title">Tulip, A Closing Note</div>
+        <div class="date">Plate VII · 13 May 2026</div>
         <svg class="ornament"><use href="#orn"/></svg>
       </figcaption>
     </figure>
@@ -517,12 +488,8 @@
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
   <button class="close" id="close" aria-label="Close viewer">CLOSE</button>
   <div class="lightbox-inner">
-    <div class="frame">
-      <div class="mat">
-        <div class="image-wrap">
-          <img id="lb-img" src="" alt="">
-        </div>
-      </div>
+    <div class="canvas">
+      <img id="lb-img" src="" alt="" decoding="async">
     </div>
     <div class="lightbox-plaque">
       <div class="title" id="lb-title"></div>
