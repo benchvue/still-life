@@ -89,6 +89,10 @@ cd C:\Users\benchvue\Documents\still-life\images\2026_05_13
 magick mogrify -format webp -quality 82 -resize "1600x1600>" *.png
 ```
 
+```
+magick mogrify -format webp -quality 82 -resize "1600x1600>" *.JPG
+```
+
 What each flag does:
 
 | Flag | Meaning |
