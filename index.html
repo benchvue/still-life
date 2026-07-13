@@ -1,1074 +1,658 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Claire Kwon — Musical Actress</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Still Life — A Curated Gallery</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+KR:wght@300;500&family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Italiana&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:        #131011;
-    --bg-soft:   #1c1719;
-    --ink:       #f2ece2;
-    --gold:      #c9a45c;
-    --gold-dim:  #8a7040;
-    --muted:     #9b9089;
-    --card-border: rgba(201,164,92,.55);
-    --radius: 22px;
-    --gap: clamp(16px, 2.5vw, 32px);
+    --paper:        #f3ece1;
+    --wall:         #ece4d4;
+    --ink:          #1c1815;
+    --ink-soft:     #4a423a;
+    --muted:        #8a7f6f;
+    --accent:       #6e5421;
+    --accent-soft:  #a8884a;
+    --canvas-edge:  #d8cdb8;
+    --canvas-side:  #c8bda6;
   }
 
   *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
 
   body{
+    font-family:'Cormorant Garamond', 'Times New Roman', serif;
+    color:var(--ink);
     background:
-      radial-gradient(1200px 600px at 50% -200px, rgba(201,164,92,.10), transparent 60%),
-      var(--bg);
-    color: var(--ink);
-    font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 300;
-    min-height: 100vh;
+      radial-gradient(1200px 600px at 20% -10%, #f6efe1 0%, transparent 60%),
+      radial-gradient(900px 500px at 90% 10%, #efe5d2 0%, transparent 55%),
+      linear-gradient(180deg, var(--wall) 0%, #ddd2bf 100%);
+    background-attachment: fixed;
+    min-height:100vh;
+    position:relative;
+    overflow-x:hidden;
   }
 
-  /* ── 헤더 ───────────────────────────── */
-  header{
-    text-align: center;
-    padding: clamp(50px, 9vw, 100px) 20px 26px;
-  }
-  .eyebrow{
-    font-family: 'Noto Serif KR', serif;
-    font-size: 13px;
-    letter-spacing: .55em;
-    text-indent: .55em;
-    color: var(--gold);
-    text-transform: uppercase;
-  }
-  h1{
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 400;
-    font-size: clamp(46px, 8vw, 92px);
-    letter-spacing: .06em;
-    line-height: 1.05;
-    margin-top: 14px;
-  }
-  .tagline{
-    margin-top: 16px;
-    font-family: 'Noto Serif KR', serif;
-    font-weight: 300;
-    font-size: 15px;
-    color: var(--muted);
-  }
-  .rule{
-    width: 72px; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    margin: 30px auto 0;
-  }
-
-  /* ── 섹션 제목 ───────────────────────── */
-  .section-head{ text-align:center; padding: 44px 20px 6px; }
-  .section-eyebrow{
-    font-size: 11.5px;
-    letter-spacing: .45em;
-    text-indent: .45em;
-    color: var(--gold);
-    text-transform: uppercase;
-  }
-  .section-title{
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 400;
-    font-style: italic;
-    font-size: clamp(28px, 5vw, 42px);
-    letter-spacing: .1em;
-    margin-top: 8px;
-  }
-  .section-title-kr{
-    font-family: 'Noto Serif KR', serif;
-    font-weight: 300;
-    font-size: clamp(14px, 2.4vw, 17px);
-    letter-spacing: .35em;
-    text-indent: .35em;
-    color: var(--muted);
-    margin-top: 10px;
-  }
-  .section-sub{
-    font-size: 12px;
-    letter-spacing: .3em;
-    color: var(--gold-dim);
-    text-transform: uppercase;
-    margin-top: 12px;
-  }
-
-  /* ── 투어 지도 ───────────────────────── */
-  .tour-map{
-    max-width: 1180px;
-    margin: 20px auto 6px;
-    padding: 0 clamp(18px, 4vw, 48px);
-  }
-  .tour-map button{
-    display: block; width: 100%;
-    border: 1px solid var(--card-border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    padding: 0; background: var(--bg-soft);
-    cursor: zoom-in;
-    box-shadow:
-      0 0 0 5px rgba(19,16,17,1),
-      0 0 0 6px rgba(201,164,92,.28),
-      0 24px 50px -18px rgba(0,0,0,.75);
-    transition: translate .4s ease;
-  }
-  @media (hover:hover){ .tour-map button:hover{ translate: 0 -5px; } }
-  .tour-map img{ display:block; width:100%; height:auto; }
-  .tour-map .map-caption{
-    text-align:center;
-    font-size: 11px;
-    letter-spacing: .28em;
-    text-transform: uppercase;
-    color: var(--muted);
-    padding: 12px 0 0;
-  }
-
-  /* ── 투어 캐러셀 ─────────────────────
-     모바일 1장 / 태블릿 2장 / PC 3장, 스와이프 + 화살표 */
-  .tour-wrap{
-    position: relative;
-    max-width: 1180px;
-    margin: 0 auto;
-    padding: 26px clamp(18px, 4vw, 48px) 8px;
-  }
-  .tour-track{
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: calc((100% - 2 * var(--gap)) / 3);
-    gap: var(--gap);
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-    padding: 8px 6px 16px;
-  }
-  .tour-track::-webkit-scrollbar{ display: none; }
-  @media (max-width: 1024px){
-    .tour-track{ grid-auto-columns: calc((100% - var(--gap)) / 2); }
-  }
-  @media (max-width: 640px){
-    .tour-track{ grid-auto-columns: 100%; }   /* 핸드폰: 1장씩 */
-  }
-
-  .show-card{
-    position: relative;
-    scroll-snap-align: start;
-    border: 0; padding: 0;
-    background: var(--bg-soft);
-    aspect-ratio: 16 / 11;
-    border-radius: var(--radius);
-    overflow: hidden;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    border: 1px solid var(--card-border);
-    box-shadow:
-      0 0 0 5px rgba(19,16,17,1),
-      0 0 0 6px rgba(201,164,92,.28),
-      0 24px 50px -18px rgba(0,0,0,.75);
-    color: var(--ink);
-    text-align: left;
-  }
-  @supports not (aspect-ratio: 16 / 11){
-    .show-card{ height: 0; padding-bottom: 68.75%; }
-  }
-  .show-card:focus-visible{ outline: 2px solid var(--gold); outline-offset: 8px; }
-  .show-card.past{ filter: grayscale(.5) brightness(.7); }
-
-  .show-bg{
-    position: absolute; inset: 0;
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    transform: scale(1.06);
-    transition: opacity .9s ease, transform 1.4s ease;
-    pointer-events: none;
-  }
-  .show-card.bg-on .show-bg{ opacity: .5; transform: scale(1); }   /* 50% — 자동 표시 */
-  .show-card::after{
+  body::before{
     content:"";
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(19,16,17,.85) 8%, transparent 55%);
-    pointer-events: none;
+    position:fixed; inset:0;
+    pointer-events:none;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.08  0 0 0 0 0.05  0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+    opacity:.3;
+    mix-blend-mode:multiply;
+    z-index:1;
   }
 
-  .show-body{
-    position: absolute; inset: 0; z-index: 2;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: clamp(18px, 2.6vw, 26px);
+  body::after{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    background: radial-gradient(120% 90% at 50% 40%, transparent 60%, rgba(40, 28, 14, .18) 100%);
+    z-index:2;
   }
-  .show-tag{
-    position: absolute; top: 14px; left: 16px;
-    font-size: 10.5px;
-    letter-spacing: .3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    border: 1px solid var(--gold-dim);
-    border-radius: 999px;
-    padding: 6px 12px 5px;
-    background: rgba(19,16,17,.55);
-    backdrop-filter: blur(3px);
-    z-index: 3;
+
+  main{ position:relative; z-index:3; }
+
+  /* ---------- HEADER ---------- */
+  header{
+    padding: clamp(48px, 9vw, 80px) 8vw 36px;
+    text-align:center;
   }
-  .show-tag.next-tag{ color:#131011; background: var(--gold); border-color: var(--gold); }
-  .show-city{
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(24px, 3.2vw, 32px);
-    letter-spacing: .04em;
-    line-height: 1.1;
-    text-shadow: 0 2px 14px rgba(0,0,0,.8);
+
+  .eyebrow{
+    font-family:'Inter', sans-serif;
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:.42em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom: 28px;
+    display:inline-flex;
+    align-items:center;
+    gap:14px;
+    flex-wrap:wrap;
+    justify-content:center;
   }
-  .show-date{
-    margin-top: 6px;
-    font-size: 12px;
-    letter-spacing: .2em;
-    color: var(--gold);
-    text-transform: uppercase;
-    text-shadow: 0 1px 8px rgba(0,0,0,.8);
+  .eyebrow::before, .eyebrow::after{
+    content:""; width:42px; height:1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
   }
-  .show-venue{
+
+  h1{
+    font-family:'Italiana', serif;
+    font-weight:400;
+    font-size: clamp(44px, 9vw, 128px);
+    line-height:.95;
+    letter-spacing:-.01em;
+    color:var(--ink);
+  }
+  h1 em{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-weight:300;
+    color:var(--accent);
+    display:block;
+    font-size:.42em;
+    letter-spacing:.04em;
     margin-top: 8px;
-    font-family: 'Noto Serif KR', serif;
-    font-size: 13.5px;
-    max-height: 0; opacity: 0; overflow: hidden;
-    transition: max-height .6s ease, opacity .6s ease .15s;
-    text-shadow: 0 1px 8px rgba(0,0,0,.85);
   }
-  .show-card.revealed .show-venue{ max-height: 60px; opacity: 1; }
-  .show-hint{
-    position: absolute; top: 18px; right: 16px;
-    font-size: 10px;
-    letter-spacing: .22em;
-    text-transform: uppercase;
-    color: rgba(242,236,226,.55);
-    transition: opacity .4s ease;
-    z-index: 3;
-  }
-  .show-card.revealed .show-hint{ opacity: 0; }
 
-  /* 좌우 화살표 — 모바일에서도 누르기 쉬운 크기 */
-  .arrow{
-    position: absolute;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
-    width: 46px; height: 46px;
-    border-radius: 50%;
-    border: 1px solid var(--gold-dim);
-    background: rgba(19,16,17,.75);
-    backdrop-filter: blur(4px);
-    color: var(--gold);
-    cursor: pointer;
-    display: grid; place-items: center;
-    z-index: 5;
-    transition: background .25s ease, opacity .3s ease;
-  }
-  .arrow svg{ width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
-  .arrow:hover{ background: rgba(201,164,92,.9); color:#131011; }
-  .arrow:disabled{ opacity: .25; cursor: default; background: rgba(19,16,17,.75); color: var(--gold); }
-  .arrow.prev{ left: clamp(2px, 1vw, 14px); }
-  .arrow.next{ right: clamp(2px, 1vw, 14px); }
-
-  /* 진행 표시 (n / 32) */
-  .tour-counter{
-    text-align: center;
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 15px;
-    letter-spacing: .2em;
-    color: var(--muted);
-    padding: 4px 0 20px;
-  }
-  .tour-counter b{ color: var(--gold); font-weight: 600; }
-
-  /* ── 누적 마일리지 카드 ─────────────── */
-  .mileage-wrap{
-    max-width: 1180px;
-    margin: 0 auto;
-    padding: 4px clamp(18px, 4vw, 48px) 20px;
-  }
-  .mileage-card{
-    border: 1px solid var(--card-border);
-    border-radius: var(--radius);
-    background: var(--bg-soft);
-    box-shadow:
-      0 0 0 5px rgba(19,16,17,1),
-      0 0 0 6px rgba(201,164,92,.28),
-      0 24px 50px -18px rgba(0,0,0,.75);
-    padding: clamp(20px, 3.4vw, 34px) clamp(18px, 3.4vw, 34px) clamp(16px, 2.6vw, 24px);
-  }
-  .mileage-title{
-    text-align: center;
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: clamp(19px, 3vw, 24px);
-    letter-spacing: .14em;
-    color: var(--ink);
-  }
-  .mileage-sub{
-    text-align: center;
-    font-size: 11px;
-    letter-spacing: .28em;
-    text-transform: uppercase;
-    color: var(--gold-dim);
-    margin-top: 6px;
-  }
-  .mileage-card{ cursor: pointer; -webkit-tap-highlight-color: transparent; }
-  /* 비행기·자동차를 세로로 쌓아 폰 한 화면에 모두 보이도록 */
-  .mileage-grid{
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: clamp(10px, 1.8vw, 14px);
-    margin-top: clamp(16px, 2.6vw, 22px);
-  }
-  .stat{
-    display: flex;
-    align-items: center;
-    gap: clamp(12px, 2vw, 18px);
-    border: 1px solid rgba(201,164,92,.22);
-    border-radius: 16px;
-    padding: clamp(11px, 1.8vw, 16px) clamp(14px, 2.2vw, 20px);
-    background: rgba(19,16,17,.45);
-  }
-  .stat-icon{
-    flex: 0 0 auto;
-    width: 46px; height: 46px;
-    border-radius: 50%;
-    border: 1.5px solid var(--gold);
-    display: grid; place-items: center;
-    background: rgba(201,164,92,.08);
-  }
-  .stat-icon svg{
-    width: 23px; height: 23px;
-    fill: none; stroke: var(--gold);
-    stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
-  }
-  .stat-label{
-    flex: 1;
-    font-size: 10.5px;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: var(--gold-dim);
+  .lede{
+    max-width: 560px;
+    margin: 32px auto 0;
+    font-size: clamp(16px, 2.4vw, 19px);
     line-height: 1.6;
-  }
-  .stat-value{ text-align: right; }
-  .stat-mi{
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 600;
-    font-size: clamp(24px, 4.6vw, 32px);
-    line-height: 1;
-    color: var(--ink);
-    white-space: nowrap;
-  }
-  .stat-mi small{
-    font-size: .48em;
-    font-weight: 400;
+    color: var(--ink-soft);
     font-style: italic;
-    color: var(--gold);
-    letter-spacing: .08em;
+    font-weight: 300;
   }
-  .stat-km{
-    margin-top: 4px;
-    font-size: 12.5px;
-    letter-spacing: .06em;
-    color: var(--muted);
-    white-space: nowrap;
-  }
-  .mileage-bar{
-    height: 3px;
-    border-radius: 999px;
-    background: rgba(201,164,92,.15);
-    margin-top: clamp(18px, 3vw, 24px);
-    overflow: hidden;
-  }
-  .mileage-bar i{
-    display: block; height: 100%;
-    width: 0;
-    background: linear-gradient(90deg, var(--gold-dim), var(--gold));
-    transition: width 1.4s ease;
-  }
-  .mileage-note{
-    margin-top: 12px;
-    text-align: center;
-    font-size: 12px;
-    line-height: 1.7;
-    color: var(--muted);
-  }
-  .mileage-note b{ color: var(--gold); font-weight: 400; }
 
-  /* ── 카드 그리드 ───────────────────── */
-  .gallery{
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: clamp(22px, 3vw, 40px);
-    max-width: 1480px;
+  .header-rule{
+    width: 1px; height: 56px;
+    background: linear-gradient(180deg, var(--accent), transparent);
+    margin: 44px auto 0;
+  }
+
+  /* ---------- COLLECTION META ---------- */
+  .meta{
+    display:flex; justify-content:center; gap: clamp(24px, 5vw, 48px);
+    flex-wrap:wrap;
+    margin: 12px auto 40px;
+    font-family:'Inter', sans-serif;
+    font-size:11px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--muted);
+    text-align:center;
+  }
+  .meta span strong{
+    display:block;
+    font-family:'Cormorant Garamond', serif;
+    font-size:18px;
+    font-weight:500;
+    color:var(--ink);
+    text-transform:none;
+    letter-spacing:0;
+    margin-top:6px;
+    font-style:italic;
+  }
+
+  /* ---------- COLLECTION (date group) ---------- */
+  .collection{
+    max-width: 1500px;
     margin: 0 auto;
-    padding: 30px clamp(18px, 4vw, 48px) 70px;
-  }
-  @media (max-width: 480px){ .gallery{ grid-template-columns: 1fr; } }
-
-  .video-gallery{
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: clamp(22px, 3vw, 40px);
-    max-width: 1480px;
-    margin: 0 auto;
-    padding: 30px clamp(18px, 4vw, 48px) 90px;
-  }
-  @media (max-width: 480px){ .video-gallery{ grid-template-columns: 1fr; } }
-
-  /* ── 플립 카드 ──────────────────────── */
-  .card{
-    perspective: 1400px;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    border: 0; background: none; padding: 0;
-    display: block; width: 100%;
-  }
-  .card-inner{
-    position: relative; width: 100%;
-    aspect-ratio: 2 / 3;
-    -webkit-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-    transition: transform .8s cubic-bezier(.2,.7,.25,1);
-  }
-  /* aspect-ratio 미지원 웹뷰(카카오톡 등) 대비 */
-  @supports not (aspect-ratio: 2 / 3){
-    .card-inner{ height: 0; padding-bottom: 150%; }
-  }
-  .card.flipped .card-inner{ -webkit-transform: rotateY(180deg); transform: rotateY(180deg); }
-  .face{
-    position: absolute; inset: 0;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    border-radius: var(--radius);
-    overflow: hidden;
-    border: 1px solid var(--card-border);
-    box-shadow:
-      0 0 0 5px rgba(19,16,17,1),
-      0 0 0 6px rgba(201,164,92,.28),
-      0 24px 50px -18px rgba(0,0,0,.75);
-    background: var(--bg-soft);
-  }
-  .face img{
-    width: 100%; height: 100%;
-    object-fit: cover; display: block;
-    transition: transform .6s ease;
-  }
-  .front{ -webkit-transform: rotateY(0deg); transform: rotateY(0deg); }
-  .back{ -webkit-transform: rotateY(180deg); transform: rotateY(180deg); }
-
-  @media (hover:hover){
-    .card:hover .face img{ transform: scale(1.04); }
-    .card:hover .card-inner{ translate: 0 -6px; }
-    .vcard:hover .thumb video,
-    .vcard:hover .thumb img{ transform: scale(1.04); }
-    .vcard:hover{ translate: 0 -6px; }
-    .vcard:hover .play{ background: rgba(201,164,92,.92); }
-    .vcard:hover .play svg{ fill: #131011; }
-  }
-  .card:focus-visible .face,
-  .vcard:focus-visible .thumb{ outline: 2px solid var(--gold); outline-offset: 8px; }
-
-  .num{
-    position: absolute; left: 16px; bottom: 14px; z-index: 2;
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic; font-size: 15px;
-    letter-spacing: .15em; color: var(--ink);
-    text-shadow: 0 1px 8px rgba(0,0,0,.8);
-    pointer-events: none;
-  }
-  .hint{
-    position: absolute; right: 16px; bottom: 14px; z-index: 2;
-    font-size: 11px; letter-spacing: .25em;
-    color: rgba(242,236,226,.75);
-    text-shadow: 0 1px 8px rgba(0,0,0,.8);
-    pointer-events: none; text-transform: uppercase;
+    padding: 20px clamp(20px, 8vw, 120px) 30px;
   }
 
-  /* ── 비디오 카드 ─────────────────────── */
-  .vcard{
-    border: 0; background: none; padding: 0;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    display: block; width: 100%;
-    transition: translate .4s ease;
+  .collection-head{
+    text-align:center;
+    margin: 40px auto 8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 22px;
   }
-  .thumb{
-    position: relative; width: 100%;
-    aspect-ratio: 16 / 9;
-    border-radius: var(--radius);
-    overflow: hidden;
-    border: 1px solid var(--card-border);
-    box-shadow:
-      0 0 0 5px rgba(19,16,17,1),
-      0 0 0 6px rgba(201,164,92,.28),
-      0 24px 50px -18px rgba(0,0,0,.75);
-    background: var(--bg-soft);
+  .collection-head::before,
+  .collection-head::after{
+    content:"";
+    height:1px; flex:1; max-width:160px;
+    background: linear-gradient(90deg, transparent, rgba(110,84,33,.45), transparent);
   }
-  @supports not (aspect-ratio: 16 / 9){
-    .thumb{ height: 0; padding-bottom: 56.25%; }
-    .thumb video, .thumb img{ position: absolute; inset: 0; }
-  }
-  .thumb video, .thumb img{
-    width: 100%; height: 100%;
-    object-fit: cover; display: block;
-    transition: transform .6s ease;
-    pointer-events: none;
-  }
-  .play{
-    position: absolute; top: 50%; left: 50%;
-    -webkit-transform: translate(-50%,-50%);
-    transform: translate(-50%,-50%);
-    width: 64px; height: 64px;
-    border-radius: 50%;
-    background: rgba(19,16,17,.55);
-    border: 1.5px solid var(--gold);
-    backdrop-filter: blur(4px);
-    display: grid; place-items: center;
-    transition: background .3s ease;
-    z-index: 2; pointer-events: none;
-  }
-  .play svg{ width: 22px; height: 22px; fill: var(--gold); margin-left: 4px; transition: fill .3s ease; }
-
-  /* ── 라이트박스 (영상 + 지도 확대) ────── */
-  .lightbox{
-    position: fixed; inset: 0;
-    background: rgba(10,8,9,.94);
-    display: none;
-    align-items: center; justify-content: center;
-    z-index: 100;
-    padding: 20px;
-  }
-  .lightbox.open{ display: flex; }
-  .lightbox video, .lightbox img{
-    max-width: min(1200px, 100%);
-    max-height: 86vh;
-    border-radius: 14px;
-    border: 1px solid var(--card-border);
-    box-shadow: 0 30px 80px -20px rgba(0,0,0,.9);
-    background: #000;
-    display: none;
-  }
-  .lightbox video.active, .lightbox img.active{ display: block; }
-  .close-btn{
-    position: absolute; top: 20px; right: 22px;
-    width: 44px; height: 44px;
-    border-radius: 50%;
-    border: 1px solid var(--gold-dim);
-    background: rgba(19,16,17,.6);
+  .collection-head h2{
+    font-family:'Italiana', serif;
+    font-weight:400;
+    font-size: clamp(22px, 4vw, 34px);
     color: var(--ink);
-    font-size: 20px;
-    cursor: pointer;
-    display: grid; place-items: center;
-    transition: background .25s ease;
+    letter-spacing:.02em;
+    white-space:nowrap;
   }
-  .close-btn:hover{ background: rgba(201,164,92,.25); }
-
-  footer{
-    text-align: center;
-    padding: 0 20px 70px;
+  .collection-sub{
+    text-align:center;
+    font-family:'Inter', sans-serif;
+    font-size:10.5px;
+    letter-spacing:.34em;
+    text-transform:uppercase;
     color: var(--muted);
-    font-size: 12.5px;
-    letter-spacing: .18em;
+    margin-bottom: 8px;
   }
-  footer .gold{ color: var(--gold-dim); }
+  .collection.newest .collection-head h2{ color: var(--accent); }
+  .badge{
+    display:inline-block;
+    margin-left:10px;
+    font-family:'Inter', sans-serif;
+    font-size:9px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--accent);
+    border:1px solid rgba(110,84,33,.4);
+    border-radius:999px;
+    padding:3px 10px;
+    vertical-align:middle;
+  }
 
-  @media (prefers-reduced-motion: reduce){
-    .card-inner, .face img, .thumb video, .thumb img, .vcard,
-    .show-bg, .show-venue, .show-card, .tour-map button{ transition: none; }
-    .tour-track{ scroll-behavior: auto; }
+  /* ---------- GALLERY GRID ---------- */
+  .gallery{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: clamp(48px, 6vw, 88px) clamp(32px, 4vw, 64px);
+    padding: 36px 0 24px;
+  }
+
+  .piece{
+    cursor: zoom-in;
+    transition: transform .6s cubic-bezier(.2,.7,.2,1);
+    opacity: 0;
+    animation: rise .9s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .piece:nth-child(1){ animation-delay: .04s; }
+  .piece:nth-child(2){ animation-delay: .12s; }
+  .piece:nth-child(3){ animation-delay: .20s; }
+  .piece:nth-child(4){ animation-delay: .28s; }
+  .piece:nth-child(5){ animation-delay: .36s; }
+  .piece:nth-child(6){ animation-delay: .44s; }
+  .piece:nth-child(7){ animation-delay: .52s; }
+
+  @keyframes rise{
+    from{ opacity:0; transform: translateY(36px); }
+    to  { opacity:1; transform: translateY(0); }
+  }
+
+  @media (min-width: 880px){
+    .gallery .piece:nth-child(3n+2){ transform: translateY(26px); }
+    .gallery .piece:nth-child(3n+3){ transform: translateY(-10px); }
+    .piece:hover{ transform: translateY(-8px) !important; }
+  }
+
+  /* ---------- CANVAS FRAME ---------- */
+  .canvas{
+    position: relative;
+    aspect-ratio: 4 / 5;
+    background: var(--canvas-edge);
+    box-shadow:
+      6px 0 0 -1px var(--canvas-side),
+      0 6px 0 -1px var(--canvas-side),
+      8px 14px 28px -8px rgba(40, 28, 14, .25),
+      14px 22px 50px -16px rgba(40, 28, 14, .22);
+    transition: box-shadow .5s ease;
+  }
+  .canvas::before{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(135deg, rgba(255,255,255,.08) 0%, transparent 30%);
+    pointer-events:none; z-index:2;
+  }
+  .canvas::after{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4'><rect width='4' height='4' fill='none'/><path d='M0 2 L4 2 M2 0 L2 4' stroke='%23000' stroke-width='.3' opacity='.06'/></svg>");
+    pointer-events:none; mix-blend-mode:multiply; z-index:3;
+  }
+  .canvas img{
+    width:100%; height:100%;
+    object-fit:cover; display:block;
+    transition: transform 1.2s cubic-bezier(.2,.7,.2,1), filter .6s;
+    filter: contrast(1.02) saturate(1.03);
+    position:relative; z-index:1;
+  }
+  @media (min-width: 880px){
+    .piece:hover .canvas{
+      box-shadow:
+        6px 0 0 -1px var(--canvas-side),
+        0 6px 0 -1px var(--canvas-side),
+        12px 22px 40px -8px rgba(40, 28, 14, .32),
+        20px 32px 60px -16px rgba(40, 28, 14, .26);
+    }
+    .piece:hover .canvas img{
+      transform: scale(1.04);
+      filter: contrast(1.05) saturate(1.07) brightness(1.02);
+    }
+  }
+
+  /* ---------- PLAQUE ---------- */
+  .plaque{ text-align:center; padding: 26px 12px 0; }
+  .plaque .title{
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic; font-weight: 500;
+    font-size: clamp(22px, 3.4vw, 26px);
+    line-height: 1.15; color: var(--ink);
+  }
+  .plaque .desc{
+    margin-top: 8px;
+    font-family:'Cormorant Garamond', serif;
+    font-size: 15px; font-weight:300;
+    color: var(--ink-soft);
+    font-style: italic;
+    line-height:1.5;
+    max-width: 30ch;
+    margin-left:auto; margin-right:auto;
+  }
+  .plaque .date{
+    margin-top: 12px;
+    font-family:'Inter', sans-serif;
+    font-size: 10.5px; letter-spacing:.34em;
+    text-transform:uppercase; color: var(--muted);
+  }
+  .plaque .ornament{
+    display:block; width:32px; height:8px;
+    margin: 14px auto 0; opacity:.55;
+  }
+
+  /* ---------- LIGHTBOX ---------- */
+  .lightbox{
+    position:fixed; inset:0;
+    background: rgba(20, 14, 8, 0);
+    backdrop-filter: blur(0px);
+    z-index: 100;
+    display:flex; align-items:center; justify-content:center;
+    padding: 5vw 4vw;
+    opacity:0; pointer-events:none;
+    transition: background .5s ease, backdrop-filter .5s ease, opacity .4s ease;
+    overflow-y:auto;
+  }
+  .lightbox.open{
+    background: rgba(20, 14, 8, .85);
+    backdrop-filter: blur(6px);
+    opacity:1; pointer-events:auto;
+  }
+  .lightbox-inner{
+    transform: scale(.94);
+    transition: transform .55s cubic-bezier(.2,.7,.2,1);
+    max-width: 860px; width:100%;
+    margin:auto;
+  }
+  .lightbox.open .lightbox-inner{ transform: scale(1); }
+  .lightbox .canvas{
+    aspect-ratio: auto;
+    box-shadow:
+      8px 0 0 -1px #b0a486,
+      0 8px 0 -1px #b0a486,
+      12px 22px 50px -8px rgba(0,0,0,.5);
+  }
+  .lightbox .canvas img{ height:auto; max-height: 68vh; }
+  .lightbox-plaque{ text-align:center; margin-top: 28px; color: var(--paper); }
+  .lightbox-plaque .title{
+    font-family:'Italiana', serif;
+    font-size: clamp(24px, 5vw, 34px);
+    color: var(--paper); letter-spacing:.02em;
+  }
+  .lightbox-plaque .desc{
+    margin-top:12px;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic; font-weight:300;
+    font-size: 16px; color: rgba(243,236,225,.78);
+    max-width: 44ch; margin-left:auto; margin-right:auto;
+    line-height:1.55;
+  }
+  .lightbox-plaque .date{
+    margin-top: 14px;
+    font-family:'Inter', sans-serif;
+    font-size: 11px; letter-spacing:.4em;
+    text-transform:uppercase; color: var(--accent-soft);
+  }
+  .close{
+    position:fixed;
+    top: 20px; right: 20px;
+    width: 44px; height: 44px;
+    border:1px solid rgba(248,242,230,.4);
+    background: rgba(20,14,8,.4);
+    color: var(--paper);
+    cursor:pointer;
+    font-family:'Inter', sans-serif;
+    font-size: 10px; letter-spacing:.18em;
+    transition: all .3s ease;
+    z-index:101;
+  }
+  .close:hover{ background: var(--paper); color: var(--ink); }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    text-align:center;
+    padding: 50px 20px 70px;
+    color: var(--muted);
+    font-family:'Inter', sans-serif;
+    font-size: 11px; letter-spacing:.3em;
+    text-transform:uppercase;
+    position:relative; z-index:3;
+  }
+  footer .ornament{
+    display:block; width:80px; height:12px;
+    margin: 0 auto 20px; opacity:.5;
+  }
+
+  @media (max-width: 640px){
+    .collection{ padding: 10px 18px 20px; }
+    .gallery{ gap: 52px; padding: 28px 0 16px; }
+    .plaque{ padding-top: 22px; }
   }
 </style>
 </head>
 <body>
+<main>
 
-<header>
-  <p class="eyebrow">Musical Actress</p>
-  <h1>CLAIRE&nbsp;KWON</h1>
-  <p class="tagline">뮤지컬 배우 클레어 권 · 무대 위의 순간들</p>
-  <div class="rule"></div>
-</header>
+  <header>
+    <div class="eyebrow">A Spring Collection</div>
+    <h1>Still Life<em>— in bloom —</em></h1>
+    <p class="lede">A small, quiet study of petals, light, and the patience of looking. Gathered week by week, newest first.</p>
+    <div class="header-rule"></div>
+  </header>
 
-<!-- ══════════ 클레어 순회 공연 일정 ══════════ -->
-<div class="section-head">
-  <p class="section-eyebrow">2026 – 2027 North American Tour</p>
-  <h2 class="section-title">Claire on Tour</h2>
-  <p class="section-title-kr">클레어 순회 공연 일정</p>
-  <p class="section-sub">swipe or use arrows · tap a card for city &amp; venue</p>
-</div>
+  <section class="meta">
+    <span>Latest <strong>25 June 2026</strong></span>
+    <span>Works <strong>Nine Pieces</strong></span>
+    <span>Series <strong>Floral I</strong></span>
+  </section>
 
-<!-- 전체 일정 지도 -->
-<div class="tour-map">
-  <button id="mapBtn" aria-label="투어 지도 크게 보기">
-    <img src="images/map-1.png" alt="2026–2027 북미 투어 전체 일정 지도"
-         onerror="this.onerror=null;this.src=mapPlaceholder()">
-  </button>
-  <p class="map-caption">Full tour route · tap to enlarge</p>
-</div>
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <symbol id="orn" viewBox="0 0 80 12">
+        <line x1="0" y1="6" x2="30" y2="6" stroke="#a8884a" stroke-width=".6"/>
+        <line x1="50" y1="6" x2="80" y2="6" stroke="#a8884a" stroke-width=".6"/>
+        <circle cx="40" cy="6" r="2.2" fill="none" stroke="#a8884a" stroke-width=".6"/>
+        <circle cx="40" cy="6" r=".8" fill="#a8884a"/>
+      </symbol>
+    </defs>
+  </svg>
 
-<!-- 공연 카드 캐러셀 -->
-<div class="tour-wrap">
-  <button class="arrow prev" id="prevBtn" aria-label="이전 공연">
-    <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
-  </button>
-  <div class="tour-track" id="tourTrack"></div>
-  <button class="arrow next" id="nextBtn" aria-label="다음 공연">
-    <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
-  </button>
-</div>
-<p class="tour-counter" id="tourCounter"></p>
-
-<!-- 누적 이동 거리 -->
-<div class="mileage-wrap">
-  <div class="mileage-card">
-    <p class="mileage-title">Tour Mileage</p>
-    <p class="mileage-sub" id="mileageSub">투어 누적 이동 거리</p>
-    <div class="mileage-grid">
-      <div class="stat">
-        <span class="stat-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M10.5 13.5 3 11l1.5-1.5 6 .75 5-5.25c.6-.6 1.8-.9 2.5-.25.65.7.35 1.9-.25 2.5l-5.25 5 .75 6L11.75 20l-2.5-7.5"/><path d="M4.5 19.5h15"/></svg>
-        </span>
-        <p class="stat-label">By Air<br>from JFK</p>
-        <div class="stat-value">
-          <p class="stat-mi"><span id="airMi">0</span> <small>mi</small></p>
-          <p class="stat-km" id="airKm">0 km</p>
-        </div>
-      </div>
-      <div class="stat">
-        <span class="stat-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M5 16l1.2-4.2c.25-.9 1-1.5 1.9-1.5h7.8c.9 0 1.65.6 1.9 1.5L19 16"/><path d="M4 16h16v3.2a.8.8 0 0 1-.8.8H18a.8.8 0 0 1-.8-.8V18H6.8v1.2a.8.8 0 0 1-.8.8H4.8a.8.8 0 0 1-.8-.8z"/><path d="M6.5 13.5h11"/></svg>
-        </span>
-        <p class="stat-label">By Road<br>from Belasco Theatre</p>
-        <div class="stat-value">
-          <p class="stat-mi"><span id="carMi">0</span> <small>mi</small></p>
-          <p class="stat-km" id="carKm">0 km</p>
-        </div>
-      </div>
+  <!-- ============ NEWEST COLLECTION ============ -->
+  <section class="collection newest">
+    <div class="collection-head">
+      <h2>25 June 2026 <span class="badge">Latest</span></h2>
     </div>
-    <div class="mileage-bar"><i id="mileageBar"></i></div>
-    <p class="mileage-note">
-      ✈ 비행 거리는 <b>뉴욕 JFK 공항</b>에서 각 도시 최대 공항까지의 항공 마일리지 누적,
-      🚗 주행 거리는 <b>뉴욕 Belasco Theatre</b>에서 각 공연장까지 자동차로 이동한 거리의 누적입니다.<br>
-      <b>카드를 탭하면</b> 전체 투어(#1 → #32)를 도시별로 따라가는 시뮬레이션이 재생됩니다.
-    </p>
+    <p class="collection-sub">Splatter · A Gestural Departure</p>
+
+    <div class="gallery">
+
+      <figure class="piece"
+              data-title="Tulip, Set Loose"
+              data-desc="A departure from quiet observation — the tulip rendered in splatter and gesture, form dissolved into the energy of its own colour."
+              data-date="Plate I · 25 June 2026"
+              data-src="images/2026_6_25/20260625_tulip_0001.webp">
+        <div class="canvas">
+          <img src="images/2026_6_25/20260625_tulip_0001.webp"
+               alt="Tulip, splatter painting study"
+               loading="lazy" decoding="async">
+        </div>
+        <figcaption class="plaque">
+          <div class="title">Tulip, Set Loose</div>
+          <div class="desc">Petals thrown across the canvas in gesture.</div>
+          <div class="date">Plate I · 25 June 2026</div>
+          <svg class="ornament"><use href="#orn"/></svg>
+        </figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- ============ EARLIER — PEONY ============ -->
+  <section class="collection">
+    <div class="collection-head">
+      <h2>16 May 2026</h2>
+    </div>
+    <p class="collection-sub">Peony · A New Study</p>
+
+    <div class="gallery">
+
+      <figure class="piece"
+              data-title="Peony, Before Opening"
+              data-desc="Tight green sepals still cradling the bloom — the quiet hour before a rose decides to become one."
+              data-date="Plate I · 16 May 2026"
+              data-src="images/2026_05_16/peony-1.webp">
+        <div class="canvas">
+          <img src="images/2026_05_16/peony-1.webp"
+               alt="Peony still life, before opening"
+               loading="lazy" decoding="async">
+        </div>
+        <figcaption class="plaque">
+          <div class="title">Peony, Before Opening</div>
+          <div class="desc">The quiet hour before a rose decides to become one.</div>
+          <div class="date">Plate I · 16 May 2026</div>
+          <svg class="ornament"><use href="#orn"/></svg>
+        </figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- ============ EARLIER COLLECTION ============ -->
+  <section class="collection">
+    <div class="collection-head">
+      <h2>13 May 2026</h2>
+    </div>
+    <p class="collection-sub">Floral I · The First Seven</p>
+
+    <div class="gallery">
+
+      <figure class="piece"
+              data-title="Azalea, Morning Window"
+              data-desc="First light catching the ruffled edge of an azalea — colour before the day has fully arrived."
+              data-date="Plate I · 13 May 2026"
+              data-src="images/2026_05_13/azalea-1.webp">
+        <div class="canvas">
+          <img src="images/2026_05_13/azalea-1.webp" alt="Azalea still life, morning light" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="plaque">
+          <div class="title">Azalea, Morning Window</div>
+          <div class="desc">Colour before the day has fully arrived.</div>
+          <div class="date">Plate I · 13 May 2026</div>
+          <svg class="ornament"><use href="#orn"/></svg>
+        </figcaption>
+      </figure>
+
+      <figure class="piece"
+              data-title="Azalea, Afternoon Study"
+              data-desc="The same bloom hours later, fuller and warmer, holding the heat of the room."
+              data-date="Plate II · 13 May 2026"
+              data-src="images/2026_05_13/azalea-2.webp">
+        <div class="canvas">
+          <img src="images/2026_05_13/azalea-2.webp" alt="Azalea still life, afternoon study" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="plaque">
+          <div class="title">Azalea, Afternoon Study</div>
+          <div class="desc">Fuller and warmer, holding the heat of the room.</div>
+          <div class="date">Plate II · 13 May 2026</div>
+          <svg class="ornament"><use href="#orn"/></svg>
+        </figcaption>
+      </figure>
+
+      <figure class="piece"
+              data-title="Cornflower, A Field Note"
+              data-desc="A single blue cornflower against muted ground — small, exact, unhurried."
+              data-date="Plate III · 13 May 2026"
+              data-src="images/2026_05_13/conflower.webp">
+        <div class="canvas">
+          <img src="images/2026_05_13/conflower.webp" alt="Cornflower still life" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="plaque">
+          <div class="title">Cornflower, A Field Note</div>
+          <div class="desc">Small, exact, unhurried.</div>
+          <div class="date">Plate III · 13 May 2026</div>
+          <svg class="ornament"><use href="#orn"/></svg>
+        </figcaption>
+      </figure>
+
+      <figure class="piece"
+              data-title="Forsythia in Quiet Light"
+              data-desc="Bare stems strung with yellow — spring announcing itself before the leaves agree."
+              data-date="Plate IV · 13 May 2026"
+              data-src="images/2026_05_13/forsythia-1.webp">
+        <div class="canvas">
+          <img src="images/2026_05_13/forsythia-1.webp" alt="Forsythia still life" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="plaque">
+          <div class="title">Forsythia in Quiet Light</div>
+          <div class="desc">Spring announcing itself before the leaves agree.</div>
+          <div class="date">Plate IV · 13 May 2026</div>
+          <svg class="ornament"><use href="#orn"/></svg>
+        </figcaption>
+      </figure>
+
+      <figure class="piece"
+              data-title="Tulip, First Posture"
+              data-desc="Stem upright, petals closed in a tight cup — a tulip at its most composed."
+              data-date="Plate V · 13 May 2026"
+              data-src="images/2026_05_13/tulip-1.webp">
+        <div class="canvas">
+          <img src="images/2026_05_13/tulip-1.webp" alt="Tulip still life, first study" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="plaque">
+          <div class="title">Tulip, First Posture</div>
+          <div class="desc">A tulip at its most composed.</div>
+          <div class="date">Plate V · 13 May 2026</div>
+          <svg class="ornament"><use href="#orn"/></svg>
+        </figcaption>
+      </figure>
+
+      <figure class="piece"
+              data-title="Tulip, Bending Toward Evening"
+              data-desc="The stem has begun its slow lean — gravity and tiredness reading as grace."
+              data-date="Plate VI · 13 May 2026"
+              data-src="images/2026_05_13/tulip-2.webp">
+        <div class="canvas">
+          <img src="images/2026_05_13/tulip-2.webp" alt="Tulip still life, evening" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="plaque">
+          <div class="title">Tulip, Bending Toward Evening</div>
+          <div class="desc">Gravity and tiredness reading as grace.</div>
+          <div class="date">Plate VI · 13 May 2026</div>
+          <svg class="ornament"><use href="#orn"/></svg>
+        </figcaption>
+      </figure>
+
+      <figure class="piece"
+              data-title="Tulip, A Closing Note"
+              data-desc="Petals open wide and loosening — the last full breath before they let go."
+              data-date="Plate VII · 13 May 2026"
+              data-src="images/2026_05_13/tulip-3.webp">
+        <div class="canvas">
+          <img src="images/2026_05_13/tulip-3.webp" alt="Tulip still life, closing study" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="plaque">
+          <div class="title">Tulip, A Closing Note</div>
+          <div class="desc">The last full breath before they let go.</div>
+          <div class="date">Plate VII · 13 May 2026</div>
+          <svg class="ornament"><use href="#orn"/></svg>
+        </figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <footer>
+    <svg class="ornament"><use href="#orn"/></svg>
+    Still Life — A Curated Gallery · MMXXVI
+  </footer>
+
+</main>
+
+<!-- ---------- LIGHTBOX ---------- -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <button class="close" id="close" aria-label="Close viewer">CLOSE</button>
+  <div class="lightbox-inner">
+    <div class="canvas">
+      <img id="lb-img" src="" alt="" decoding="async">
+    </div>
+    <div class="lightbox-plaque">
+      <div class="title" id="lb-title"></div>
+      <div class="desc" id="lb-desc"></div>
+      <div class="date" id="lb-date"></div>
+    </div>
   </div>
 </div>
 
-<!-- ══════════ 포토카드 ══════════ -->
-<div class="section-head">
-  <h2 class="section-title">Photocards</h2>
-  <p class="section-sub">tap a card to flip</p>
-</div>
-<main class="gallery" id="gallery"></main>
-
-<!-- ══════════ 무대 영상 ══════════ -->
-<div class="section-head">
-  <h2 class="section-title">On Stage</h2>
-  <p class="section-sub">tap to play</p>
-</div>
-<section class="video-gallery" id="videoGallery"></section>
-
-<footer>
-  <span class="gold">©</span> 2026 CLAIRE KWON &nbsp;·&nbsp; ALL RIGHTS RESERVED
-</footer>
-
-<div class="lightbox" id="lightbox">
-  <button class="close-btn" id="closeBtn" aria-label="닫기">✕</button>
-  <video id="lightboxVideo" controls playsinline></video>
-  <img id="lightboxImg" alt="투어 지도 확대">
-</div>
-
 <script>
-  /* ══════════════ 공연 일정 (전체) ══════════════
-     wiki: 영문 위키피디아 문서 제목 → 도시 대표 사진 자동 로드 */
-  const PERFORMANCES = [
-    { n:1,  city:"Baltimore, MD",     start:"2026-09-13", end:"2026-09-19", dates:"Sep 13 – Sep 19 2026", venue:"The Hippodrome Theatre",                        wiki:"Baltimore" },
-    { n:2,  city:"Greensboro, NC",    start:"2026-09-22", end:"2026-09-27", dates:"Sep 22 – Sep 27 2026", venue:"Steven Tanger Center for the Performing Arts",  wiki:"Greensboro,_North_Carolina" },
-    { n:3,  city:"Greenville, SC",    start:"2026-09-29", end:"2026-10-04", dates:"Sep 29 – Oct 4 2026",  venue:"Peace Center Concert Hall",                     wiki:"Greenville,_South_Carolina" },
-    { n:4,  city:"Washington, DC",    start:"2026-10-06", end:"2026-10-11", dates:"Oct 6 – Oct 11 2026",  venue:"The National Theatre",                          wiki:"Washington,_D.C." },
-    { n:5,  city:"Durham, NC",        start:"2026-10-13", end:"2026-10-18", dates:"Oct 13 – Oct 18 2026", venue:"Durham Performing Arts Center",                 wiki:"Durham,_North_Carolina" },
-    { n:6,  city:"Detroit, MI",       start:"2026-10-20", end:"2026-11-01", dates:"Oct 20 – Nov 1 2026",  venue:"Fisher Theatre",                                wiki:"Detroit" },
-    { n:7,  city:"Columbus, OH",      start:"2026-11-03", end:"2026-11-08", dates:"Nov 3 – Nov 8 2026",   venue:"Ohio Theatre",                                  wiki:"Columbus,_Ohio" },
-    { n:8,  city:"Grand Rapids, MI",  start:"2026-11-10", end:"2026-11-15", dates:"Nov 10 – Nov 15 2026", venue:"DeVos Performance Hall",                        wiki:"Grand_Rapids,_Michigan" },
-    { n:9,  city:"Minneapolis, MN",   start:"2026-11-17", end:"2026-11-22", dates:"Nov 17 – Nov 22 2026", venue:"Orpheum Theatre",                               wiki:"Minneapolis" },
-    { n:10, city:"Madison, WI",       start:"2026-11-24", end:"2026-11-29", dates:"Nov 24 – Nov 29 2026", venue:"Overture Center for the Arts",                  wiki:"Madison,_Wisconsin" },
-    { n:11, city:"Des Moines, IA",    start:"2026-12-01", end:"2026-12-06", dates:"Dec 1 – Dec 6 2026",   venue:"Des Moines Civic Center",                       wiki:"Des_Moines,_Iowa" },
-    { n:12, city:"Omaha, NE",         start:"2026-12-08", end:"2026-12-13", dates:"Dec 8 – Dec 13 2026",  venue:"Orpheum Theater",                               wiki:"Omaha,_Nebraska" },
-    { n:13, city:"Appleton, WI",      start:"2026-12-15", end:"2026-12-20", dates:"Dec 15 – Dec 20 2026", venue:"Fox Cities Performing Arts Center",             wiki:"Appleton,_Wisconsin" },
-    { n:14, city:"Pittsburgh, PA",    start:"2026-12-29", end:"2027-01-03", dates:"Dec 29 – Jan 3 2027",  venue:"Benedum Center",                                wiki:"Pittsburgh" },
-    { n:15, city:"Chicago, IL",       start:"2027-01-05", end:"2027-01-17", dates:"Jan 5 – Jan 17 2027",  venue:"CIBC Theatre",                                  wiki:"Chicago" },
-    { n:16, city:"Cincinnati, OH",    start:"2027-01-19", end:"2027-01-31", dates:"Jan 19 – Jan 31 2027", venue:"Aronoff Center",                                wiki:"Cincinnati" },
-    { n:17, city:"Boston, MA",        start:"2027-02-02", end:"2027-02-14", dates:"Feb 2 – Feb 14 2027",  venue:"Citizens Opera House",                          wiki:"Boston" },
-    { n:18, city:"Hartford, CT",      start:"2027-02-16", end:"2027-02-21", dates:"Feb 16 – Feb 21 2027", venue:"The Bushnell Performing Arts Center",           wiki:"Hartford,_Connecticut" },
-    { n:19, city:"Providence, RI",    start:"2027-02-23", end:"2027-02-28", dates:"Feb 23 – Feb 28 2027", venue:"Providence Performing Arts Center",             wiki:"Providence,_Rhode_Island" },
-    { n:20, city:"Cleveland, OH",     start:"2027-03-02", end:"2027-03-21", dates:"Mar 2 – Mar 21 2027",  venue:"Connor Palace",                                 wiki:"Cleveland" },
-    { n:21, city:"Philadelphia, PA",  start:"2027-03-23", end:"2027-04-04", dates:"Mar 23 – Apr 4 2027",  venue:"Academy of Music",                              wiki:"Philadelphia" },
-    { n:22, city:"Louisville, KY",    start:"2027-04-06", end:"2027-04-11", dates:"Apr 6 – Apr 11 2027",  venue:"The Kentucky Center",                           wiki:"Louisville,_Kentucky" },
-    { n:23, city:"St. Louis, MO",     start:"2027-04-13", end:"2027-04-25", dates:"Apr 13 – Apr 25 2027", venue:"The Fabulous Fox",                              wiki:"St._Louis" },
-    { n:24, city:"Salt Lake, UT",     start:"2027-04-27", end:"2027-05-02", dates:"Apr 27 – May 2 2027",  venue:"The George S. and Dolores Doré Eccles Theater", wiki:"Salt_Lake_City" },
-    { n:25, city:"Los Angeles, CA",   start:"2027-05-04", end:"2027-05-23", dates:"May 4 – May 23 2027",  venue:"Pantages Theatre",                              wiki:"Los_Angeles" },
-    { n:26, city:"San Diego, CA",     start:"2027-06-01", end:"2027-06-06", dates:"Jun 1 – Jun 6 2027",   venue:"San Diego Civic Theatre",                       wiki:"San_Diego" },
-    { n:27, city:"Las Vegas, NV",     start:"2027-06-08", end:"2027-06-13", dates:"Jun 8 – Jun 13 2027",  venue:"Reynolds Hall",                                 wiki:"Las_Vegas" },
-    { n:28, city:"Costa Mesa, CA",    start:"2027-06-15", end:"2027-06-27", dates:"Jun 15 – Jun 27 2027", venue:"Segerstrom Hall",                               wiki:"Costa_Mesa,_California" },
-    { n:29, city:"San Francisco, CA", start:"2027-06-29", end:"2027-07-18", dates:"Jun 29 – Jul 18 2027", venue:"Orpheum Theatre",                               wiki:"San_Francisco" },
-    { n:30, city:"Seattle, WA",       start:"2027-07-21", end:"2027-08-01", dates:"Jul 21 – Aug 1 2027",  venue:"The 5th Avenue Theatre",                        wiki:"Seattle" },
-    { n:31, city:"Sacramento, CA",    start:"2027-08-10", end:"2027-08-15", dates:"Aug 10 – Aug 15 2027", venue:"SAFE Credit Union Performing Arts Center",      wiki:"Sacramento,_California" },
-    { n:32, city:"Denver, CO",        start:"2027-08-18", end:"2027-08-29", dates:"Aug 18 – Aug 29 2027", venue:"Buell Theatre",                                 wiki:"Denver" },
-  ];
+  const lb       = document.getElementById('lightbox');
+  const lbImg    = document.getElementById('lb-img');
+  const lbTitle  = document.getElementById('lb-title');
+  const lbDesc   = document.getElementById('lb-desc');
+  const lbDate   = document.getElementById('lb-date');
+  const closeBtn = document.getElementById('close');
 
-  const today = new Date(); today.setHours(0,0,0,0);
-  const isPast = p => new Date(p.end + "T23:59:59") < today;
-  const rawNext  = PERFORMANCES.findIndex(p => !isPast(p));
-  const hasNext  = rawNext !== -1;                       /* 모두 지났으면 false */
-  const nextIndex = hasNext ? rawNext : PERFORMANCES.length - 1;
-
-  /* ── 캐러셀 생성 ── */
-  const track   = document.getElementById("tourTrack");
-  const prevBtn = document.getElementById("prevBtn");
-  const nextBtn = document.getElementById("nextBtn");
-  const counter = document.getElementById("tourCounter");
-
-  /* 화면에 보이는 카드부터 도시 사진을 자동으로 로드 (모바일 데이터 절약) */
-  const loadCityBg = (card) => {
-    const bgEl = card.querySelector(".show-bg");
-    fetch("https://en.wikipedia.org/api/rest_v1/page/summary/" + card.dataset.wiki)
-      .then(function(r){ return r.json(); })
-      .then(function(d){
-        const url = (d.originalimage && d.originalimage.source) || (d.thumbnail && d.thumbnail.source);
-        if (!url) return;
-        const pre = new Image();
-        pre.onload = function(){
-          bgEl.style.backgroundImage = 'url("' + url + '")';
-          card.classList.add("bg-on");
-        };
-        pre.src = url;
-      })
-      .catch(function(){});
-  };
-
-  const bgObserver = ("IntersectionObserver" in window) ? new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      bgObserver.unobserve(entry.target);
-      loadCityBg(entry.target);
+  document.querySelectorAll('.piece').forEach(p => {
+    p.addEventListener('click', () => {
+      lbImg.src           = p.dataset.src;
+      lbImg.alt           = p.dataset.title;
+      lbTitle.textContent = p.dataset.title;
+      lbDesc.textContent  = p.dataset.desc || '';
+      lbDate.textContent  = p.dataset.date;
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
     });
-  }, { root: track, rootMargin: "0px 400px" }) : null;   /* 미지원 시 즉시 로드 */
-
-  PERFORMANCES.forEach((p, idx) => {
-    const card = document.createElement("button");
-    card.className = "show-card" + (isPast(p) ? " past" : "");
-    card.dataset.wiki = p.wiki;
-    card.setAttribute("aria-label", `공연 #${p.n} ${p.city} — 눌러서 공연장 보기`);
-
-    const isNext = hasNext && idx === nextIndex;
-    card.innerHTML = `
-      <div class="show-bg"></div>
-      <span class="show-tag ${isNext ? "next-tag" : ""}">${isNext ? "Next · " : ""}#${p.n}</span>
-      <span class="show-hint">Tap for venue</span>
-      <div class="show-body">
-        <div class="show-city">${p.city}</div>
-        <div class="show-date">${p.dates}</div>
-        <div class="show-venue">${p.venue}</div>
-      </div>`;
-
-    /* 클릭은 공연장 이름 표시/숨김만 담당 */
-    card.addEventListener("click", () => card.classList.toggle("revealed"));
-
-    track.appendChild(card);
-    if (bgObserver) bgObserver.observe(card); else loadCityBg(card);
   });
 
-  /* ── 화살표 / 카운터 ── */
-  const cardStep = () => {
-    const first = track.querySelector(".show-card");
-    const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
-    return first ? first.offsetWidth + gap : 300;
-  };
-  const scrollTrack = (dx) => {
-    try { track.scrollBy({ left: dx, behavior: "smooth" }); }
-    catch (e) { track.scrollLeft += dx; }
-  };
-  prevBtn.addEventListener("click", () => scrollTrack(-cardStep()));
-  nextBtn.addEventListener("click", () => scrollTrack( cardStep()));
-
-  const updateNav = () => {
-    const max = track.scrollWidth - track.clientWidth - 2;
-    prevBtn.disabled = track.scrollLeft <= 2;
-    nextBtn.disabled = track.scrollLeft >= max;
-    const idx = Math.min(PERFORMANCES.length, Math.round(track.scrollLeft / cardStep()) + 1);
-    counter.innerHTML = `<b>#${idx}</b> / ${PERFORMANCES.length}`;
-  };
-  track.addEventListener("scroll", () => requestAnimationFrame(updateNav));
-  window.addEventListener("resize", updateNav);
-
-  /* 처음 로드 시 '다음 공연' 카드가 화면 가운데 오도록 이동
-     (오늘 기준: 다음 공연이 #1이면 #1~#3, 모두 끝났으면 마지막 카드들이 보임) */
-  const centerOnNext = () => {
-    const step = cardStep();
-    const visible = Math.max(1, Math.round((track.clientWidth + (step - track.querySelector(".show-card").offsetWidth)) / step));
-    const maxStart = PERFORMANCES.length - visible;
-    let start = nextIndex - Math.floor((visible - 1) / 2);   /* 가운데 배치 */
-    start = Math.max(0, Math.min(start, Math.max(0, maxStart)));
-    track.scrollLeft = start * step;
-    updateNav();
-  };
-  window.addEventListener("load", centerOnNext);
-  updateNav();
-
-  /* ══════════════ 누적 마일리지 ══════════════
-     air : JFK → 각 도시 최대 공항 항공 거리(마일, 대권거리 근사치)
-     road: Belasco Theatre(NYC) → 각 공연장 자동차 주행 거리(마일, 근사치) */
-  const LEGS = {
-    1:{air:184, road:190},   2:{air:461, road:510},   3:{air:610, road:700},
-    4:{air:213, road:225},   5:{air:427, road:500},   6:{air:509, road:615},
-    7:{air:483, road:535},   8:{air:617, road:715},   9:{air:1029,road:1200},
-    10:{air:811, road:950},  11:{air:1027,road:1120}, 12:{air:1148,road:1250},
-    13:{air:750, road:940},  14:{air:340, road:370},  15:{air:740, road:790},
-    16:{air:589, road:640},  17:{air:187, road:215},  18:{air:107, road:115},
-    19:{air:144, road:180},  20:{air:425, road:460},  21:{air:94,  road:95},
-    22:{air:662, road:740},  23:{air:892, road:950},  24:{air:1990,road:2170},
-    25:{air:2475,road:2790}, 26:{air:2446,road:2760}, 27:{air:2248,road:2520},
-    28:{air:2454,road:2760}, 29:{air:2586,road:2900}, 30:{air:2421,road:2850},
-    31:{air:2521,road:2810}, 32:{air:1626,road:1780}
-  };
-
-  /* 오늘 기준 이미 시작된 공연까지 누적 */
-  const hasStarted = p => new Date(p.start + "T00:00:00") <= today;
-  let doneCount = 0, airSum = 0, roadSum = 0, airTotal = 0, roadTotal = 0;
-  PERFORMANCES.forEach(p => {
-    const leg = LEGS[p.n]; if (!leg) return;
-    airTotal += leg.air; roadTotal += leg.road;
-    if (hasStarted(p)) { doneCount++; airSum += leg.air; roadSum += leg.road; }
-  });
-
-  const MI2KM = 1.60934;
-  const fmt = n => Math.round(n).toLocaleString("en-US");
-
-  const elAirMi = document.getElementById("airMi");
-  const elCarMi = document.getElementById("carMi");
-  const elAirKm = document.getElementById("airKm");
-  const elCarKm = document.getElementById("carKm");
-  const elBar   = document.getElementById("mileageBar");
-  const elSub   = document.getElementById("mileageSub");
-
-  const setMileage = (air, road, count, subText) => {
-    elAirMi.textContent = fmt(air);
-    elCarMi.textContent = fmt(road);
-    elAirKm.textContent = fmt(air  * MI2KM) + " km";
-    elCarKm.textContent = fmt(road * MI2KM) + " km";
-    elBar.style.width = (count / PERFORMANCES.length * 100) + "%";
-    elSub.textContent = subText;
-  };
-
-  /* 오늘 기준 자동 누적 표시 (카운트업 애니메이션) */
-  let gen = 0;                                  /* 애니메이션 세대 — 겹침 방지 */
-  const renderToday = () => {
-    const myGen = ++gen;
-    const guard = (el, target, suffix) => {
-      const dur = 1400, t0 = performance.now();
-      const tick = now => {
-        if (myGen !== gen) return;
-        const r = Math.min(1, (now - t0) / dur);
-        const eased = 1 - Math.pow(1 - r, 3);
-        el.textContent = fmt(target * eased) + (suffix || "");
-        if (r < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-    };
-    guard(elAirMi, airSum);
-    guard(elCarMi, roadSum);
-    guard(elAirKm, airSum  * MI2KM, " km");
-    guard(elCarKm, roadSum * MI2KM, " km");
-    elBar.style.width = (doneCount / PERFORMANCES.length * 100) + "%";
-    elSub.textContent = "투어 누적 이동 거리 · " + doneCount + " / " + PERFORMANCES.length + " cities · tap to simulate";
-  };
-
-  /* 탭 → 전체 투어 시뮬레이션 (#1부터 도시별로 누적) / 다시 탭 → 오늘 기준 복귀 */
-  const mileageCard = document.querySelector(".mileage-card");
-  let simTimer = null;
-
-  const stopSim = () => { if (simTimer){ clearInterval(simTimer); simTimer = null; } };
-
-  const runSimulation = () => {
-    stopSim();
-    gen++;                                       /* 진행 중인 카운트업 중단 */
-    let i = 0, air = 0, road = 0;
-    setMileage(0, 0, 0, "시뮬레이션 시작 · New York, NY");
-    simTimer = setInterval(() => {
-      const p = PERFORMANCES[i];
-      const leg = LEGS[p.n] || { air: 0, road: 0 };
-      air += leg.air; road += leg.road; i++;
-      setMileage(air, road, i, "#" + p.n + " · " + p.city + "  (" + i + "/" + PERFORMANCES.length + ")");
-      if (i >= PERFORMANCES.length){
-        stopSim();
-        elSub.textContent = "전체 투어 시뮬레이션 완료 · " + PERFORMANCES.length + " cities · tap to reset";
-      }
-    }, 220);
-  };
-
-  mileageCard.setAttribute("role", "button");
-  mileageCard.setAttribute("aria-label", "탭하면 전체 투어 마일리지 시뮬레이션 재생");
-  mileageCard.addEventListener("click", () => {
-    if (simTimer){ stopSim(); renderToday(); }        /* 재생 중 탭 → 중단, 오늘 기준 */
-    else if (elSub.textContent.indexOf("시뮬레이션 완료") !== -1){ renderToday(); }
-    else { runSimulation(); }
-  });
-
-  /* 카드가 화면에 들어올 때 오늘 기준 카운트 시작 (미지원 시 즉시) */
-  if ("IntersectionObserver" in window) {
-    const mo = new IntersectionObserver(es => {
-      es.forEach(e => { if (e.isIntersecting) { mo.disconnect(); renderToday(); } });
-    }, { threshold: .3 });
-    mo.observe(mileageCard);
-  } else {
-    renderToday();
+  function closeLB(){
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
   }
-
-  /* ── 지도 플레이스홀더 ── */
-  function mapPlaceholder(){
-    const svg =
-      `<svg xmlns='http://www.w3.org/2000/svg' width='1536' height='700'>` +
-      `<rect width='100%25' height='100%25' fill='%231c1719'/>` +
-      `<rect x='30' y='30' width='1476' height='640' fill='none' stroke='%23c9a45c' stroke-opacity='.35' stroke-width='2' rx='14'/>` +
-      `<text x='50%25' y='46%25' fill='%23c9a45c' font-family='Georgia' font-size='52' font-style='italic' text-anchor='middle'>Tour Map</text>` +
-      `<text x='50%25' y='56%25' fill='%239b9089' font-family='monospace' font-size='30' text-anchor='middle'>images/map-1.png</text>` +
-      `</svg>`;
-    return "data:image/svg+xml," + svg;
-  }
-
-  /* ══════════════ 포토카드 (18장) / 영상 (6개) ══════════════ */
-  const TOTAL_CARDS  = 18;
-  const TOTAL_VIDEOS = 6;
-  const IMG_PATH   = "images/";
-  const VIDEO_PATH = "videos/";
-
-  const gallery      = document.getElementById("gallery");
-  const videoGallery = document.getElementById("videoGallery");
-
-  const placeholder = (label, front, wide) => {
-    const c1 = front ? "%231c1719" : "%23241a10";
-    const w = wide ? 1280 : 800, h = wide ? 720 : 1200;
-    const svg =
-      `<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}'>` +
-      `<rect width='100%25' height='100%25' fill='${c1}'/>` +
-      `<rect x='30' y='30' width='${w-60}' height='${h-60}' fill='none' stroke='%23c9a45c' stroke-opacity='.35' stroke-width='2' rx='14'/>` +
-      `<text x='50%25' y='47%25' fill='%23c9a45c' font-family='Georgia' font-size='44' font-style='italic' text-anchor='middle'>Claire Kwon</text>` +
-      `<text x='50%25' y='56%25' fill='%239b9089' font-family='monospace' font-size='30' text-anchor='middle'>${label}</text>` +
-      `</svg>`;
-    return "data:image/svg+xml," + svg;
-  };
-
-  /* GitHub Pages는 파일명 대소문자를 구분하므로,
-     여러 확장자/대소문자 조합을 순서대로 시도해서 있는 파일을 자동으로 찾음 */
-  const EXT_CANDIDATES = ["webp","WEBP","Webp","jpg","JPG","jpeg","JPEG","png","PNG"];
-
-  function attachSmartSrc(img, base, label, front){
-    let k = 0;
-    img.onerror = () => {
-      if (k < EXT_CANDIDATES.length){
-        img.src = `${base}.${EXT_CANDIDATES[k++]}`;
-      } else {
-        img.onerror = null;
-        img.src = placeholder(label, front, false);
-      }
-    };
-    img.src = `${base}.${EXT_CANDIDATES[k++]}`;
-  }
-
-  for (let i = 1; i <= TOTAL_CARDS; i++) {
-    const card = document.createElement("button");
-    card.className = "card";
-    card.setAttribute("aria-label", `카드 ${i} — 눌러서 뒤집기`);
-
-    card.innerHTML = `
-      <div class="card-inner">
-        <div class="face front">
-          <img alt="Claire Kwon — 카드 ${i} 앞면" loading="lazy">
-          <span class="num">No.&nbsp;${String(i).padStart(2,"0")}</span>
-          <span class="hint">Tap to flip</span>
-        </div>
-        <div class="face back">
-          <img alt="Claire Kwon — 카드 ${i} 뒷면" loading="lazy">
-          <span class="num">No.&nbsp;${String(i).padStart(2,"0")}</span>
-        </div>
-      </div>`;
-
-    attachSmartSrc(card.querySelector(".front img"), `${IMG_PATH}front_${i}`, `front_${i}`, true);
-    attachSmartSrc(card.querySelector(".back img"),  `${IMG_PATH}back_${i}`,  `back_${i}`,  false);
-
-    card.addEventListener("click", () => card.classList.toggle("flipped"));
-    gallery.appendChild(card);
-  }
-
-  const playIcon = `
-    <span class="play" aria-hidden="true">
-      <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-    </span>`;
-
-  const lightbox      = document.getElementById("lightbox");
-  const lightboxVideo = document.getElementById("lightboxVideo");
-  const lightboxImg   = document.getElementById("lightboxImg");
-  const closeBtn      = document.getElementById("closeBtn");
-
-  for (let i = 1; i <= TOTAL_VIDEOS; i++) {
-    const src = `${VIDEO_PATH}video_${i}.mp4`;
-    const vcard = document.createElement("button");
-    vcard.className = "vcard";
-    vcard.setAttribute("aria-label", `영상 ${i} 재생`);
-
-    vcard.innerHTML = `
-      <div class="thumb">
-        <video preload="metadata" muted playsinline src="${src}#t=0.1"></video>
-        ${playIcon}
-        <span class="num">Clip&nbsp;${String(i).padStart(2,"0")}</span>
-      </div>`;
-
-    const vid = vcard.querySelector("video");
-    vid.addEventListener("error", () => {
-      const img = document.createElement("img");
-      img.src = placeholder(`video_${i}.mp4`, true, true);
-      img.alt = `영상 ${i} 플레이스홀더`;
-      vid.replaceWith(img);
-    });
-
-    vcard.addEventListener("click", () => {
-      lightboxImg.classList.remove("active");
-      lightboxVideo.classList.add("active");
-      lightboxVideo.src = src;
-      lightbox.classList.add("open");
-      lightboxVideo.play().catch(()=>{});
-    });
-
-    videoGallery.appendChild(vcard);
-  }
-
-  /* 지도 확대 보기 */
-  document.getElementById("mapBtn").addEventListener("click", () => {
-    lightboxVideo.classList.remove("active");
-    lightboxImg.src = document.querySelector(".tour-map img").src;
-    lightboxImg.classList.add("active");
-    lightbox.classList.add("open");
-  });
-
-  const closeLightbox = () => {
-    lightbox.classList.remove("open");
-    lightboxVideo.pause();
-    lightboxVideo.removeAttribute("src");
-    lightboxVideo.load();
-    lightboxVideo.classList.remove("active");
-    lightboxImg.classList.remove("active");
-  };
-  closeBtn.addEventListener("click", closeLightbox);
-  lightbox.addEventListener("click", e => { if (e.target === lightbox) closeLightbox(); });
-  document.addEventListener("keydown", e => { if (e.key === "Escape") closeLightbox(); });
+  closeBtn.addEventListener('click', closeLB);
+  lb.addEventListener('click', e => { if(e.target === lb) closeLB(); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLB(); });
 </script>
-
 </body>
 </html>
